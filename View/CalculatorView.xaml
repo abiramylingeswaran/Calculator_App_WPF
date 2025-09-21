@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="CalculatorApp.View.CalculatorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CalculatorApp.View"
+             xmlns:VM="clr-namespace:CalculatorApp.ViewModel"             
+             mc:Ignorable="d" 
+             d:DesignHeight="550" d:DesignWidth="400"
+             >
+
+    <UserControl.Resources>
+        <VM:CalculatorCommandHandler x:Key="calculatorCommandHandler"></VM:CalculatorCommandHandler>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="#FFE4E1E1"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#FF54F7EC"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFCCCCCC"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid DataContext="{StaticResource calculatorCommandHandler}">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF97ECF3"/>
+                <GradientStop Color="#FF1B3C39" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition Height="0.10*"/>
+            <RowDefinition Height="0.85*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding HistoryText}" Grid.Row="0" TextAlignment="Right" VerticalAlignment="Bottom" Margin="0" TextWrapping="Wrap" RenderTransformOrigin="0.503,1.251">
+            <TextBlock.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFE4FBFB"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </TextBlock.Background>
+        </TextBlock>
+
+        <TextBox Text="{Binding Display}"  Grid.Row="1" FontSize="27"
+        TextAlignment="Right" VerticalContentAlignment="Bottom" Margin="0" IsReadOnly="True" BorderThickness="0" />
+
+        <Grid Grid.Row="2" Margin="5">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFC7E4EC" Offset="1"/>
+                    <GradientStop Color="#FFCCF5F5" Offset="0.016"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="0" Content="CE"  Margin="5" Grid.Row="0" Command="{Binding ClearCommand}"  Style="{StaticResource ButtonStyle}"/>
+            <Button Grid.Column="1" Content="←"  Margin="5" Grid.Row="0" Command="{Binding BackspaceCommand}" Style="{StaticResource ButtonStyle}"/>
+            <Button Grid.Column="2" Content="/"  Margin="5" Grid.Row="0" Command="{Binding OperatorCommand}" CommandParameter="/" Style="{StaticResource ButtonStyle}"/>
+            <Button Grid.Column="3" Content="*"  Margin="5" Grid.Row="0" Command="{Binding OperatorCommand}" CommandParameter="*" Style="{StaticResource ButtonStyle}"/>
+
+            <Button Grid.Column="0" Content="7"  Margin="5" Grid.Row="1" Command="{Binding NumberCommand}" CommandParameter="7" Style="{StaticResource ButtonStyle}"/>
+            <Button Grid.Column="1" Content="8"  Margin="5" Grid.Row="1" Command="{Binding NumberCommand}" CommandParameter="8" Style="{StaticResource ButtonStyle}"/>
+            <Button Grid.Column="2" Content="9"  Margin="5" Grid.Row="1" Command="{Binding NumberCommand}" CommandParameter="9" Style="{StaticResource ButtonStyle}"/>
+            <Button Grid.Column="3" Content="-"  Margin="5" Grid.Row="1" Command="{Binding OperatorCommand}" CommandParameter="-" Style="{StaticResource ButtonStyle}"/>
+
+            <Button Grid.Column="0" Content="4"  Margin="5" Grid.Row="2" Command="{Binding NumberCommand}" CommandParameter="4" Style="{StaticResource ButtonStyle}"/>
+            <Button Grid.Column="1" Content="5"  Margin="5" Grid.Row="2" Command="{Binding NumberCommand}" CommandParameter="5" Style="{StaticResource ButtonStyle}"/>
+            <Button Grid.Column="2" Content="6"  Margin="5" Grid.Row="2" Command="{Binding NumberCommand}" CommandParameter="6" Style="{StaticResource ButtonStyle}"/>
+            <Button Grid.Column="3" Content="+"  Margin="5" Grid.Row="2" Command="{Binding OperatorCommand}" CommandParameter="+" Style="{StaticResource ButtonStyle}"/>
+
+            <Button Grid.Column="0" Content="1"  Margin="5" Grid.Row="3" Command="{Binding NumberCommand}" CommandParameter="1" Style="{StaticResource ButtonStyle}"/>
+            <Button Grid.Column="1" Content="2"  Margin="5" Grid.Row="3" Command="{Binding NumberCommand}" CommandParameter="2" Style="{StaticResource ButtonStyle}"/>
+            <Button Grid.Column="2" Content="3"  Margin="5" Grid.Row="3" Command="{Binding NumberCommand}" CommandParameter="3" Style="{StaticResource ButtonStyle}"/>
+            <Button Grid.Column="3" Content="="  Margin="5" Grid.Row="3" Command="{Binding EqualCommand}" Style="{StaticResource ButtonStyle}" Grid.RowSpan="2"/>
+
+            <Button Grid.ColumnSpan="2" Content="0"  Margin="5,5,5,5" Grid.Row="4"  Command="{Binding NumberCommand}" CommandParameter="0" Style="{StaticResource ButtonStyle}"/>
+            <Button Grid.Column="2" Content="."  Margin="5" Grid.Row="4" Command="{Binding NumberCommand}" CommandParameter="." Style="{StaticResource ButtonStyle}"/>
+        </Grid>
+
+    </Grid>
+</UserControl>
