@@ -26,16 +26,6 @@ namespace CalculatorApp.Commands
         public void Execute(object parameter)
         {
             _execute(parameter);
-        }
-
-        public event EventHandler CanExecuteChanged;
-
-        public void RaiseCanExecuteChanged()
-        {
-            if (CanExecuteChanged != null)
-            {
-                CanExecuteChanged(this, EventArgs.Empty);
-            }
-        }
+        }      
     }
 }
